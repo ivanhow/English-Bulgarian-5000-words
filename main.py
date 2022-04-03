@@ -28,8 +28,8 @@ def internet(input_data):
 
 # -----------------------------Data--------------------------------------
 def download(target):
-    ftp = ftplib.FTP('ftp.photoretoucher.eu')
-    ftp.login('bg_eng@photoretoucher.eu', 'Mikolino2009')
+    ftp = ftplib.FTP('YOUR FTP')
+    ftp.login('USERNAME', 'PASS')
     download_file = io.BytesIO()
     ftp.retrbinary('RETR ' + str(target), download_file.write)
     download_file.seek(0)
@@ -42,15 +42,15 @@ def download(target):
 def upload(df):
     csv_file = df.to_csv(index=False)
 
-    ftp = ftplib.FTP('ftp.photoretoucher.eu')
-    ftp.login('bg_eng@photoretoucher.eu', 'Mikolino2009')
+    ftp = ftplib.FTP('YOUR FTP')
+    ftp.login('USERNAME', 'PASS')
 
     bio = io.BytesIO(csv_file.encode())
     ftp.storbinary('STOR words_to_learn.csv', bio)
 
 
 def no_internet():
-    canvas.itemconfig(words_to_learn, text='Yana, you Rock! Or you have no internet connection.')
+    canvas.itemconfig(words_to_learn, text='USER, you Rock! Or you have no internet connection.')
     r_button.config(image=r_button_image, highlightthickness=0, command=lambda: None)
     x_button.config(image=x_button_image, highlightthickness=0, command=lambda: None)
 
@@ -109,14 +109,14 @@ def right_answer():
         new_df = pandas.DataFrame.from_dict(data)
         upload(new_df)
 
-        canvas.itemconfig(words_to_learn, text=f'Yana, you need to learn {len(data)} words!')
+        canvas.itemconfig(words_to_learn, text=f'USER, you need to learn {len(data)} words!')
         flip_card()
         window.after(5000, generate_word)
         # generate_word()
     else:
         new_df = pandas.DataFrame.from_dict(data)
         upload(new_df)
-        canvas.itemconfig(words_to_learn, text='Yana, you Rock!')
+        canvas.itemconfig(words_to_learn, text='USER, you Rock!')
         r_button.config(image=r_button_image, highlightthickness=0, command=lambda: None)
 
 
@@ -143,8 +143,8 @@ def hide_hint(event):
 
 # -----------------------------UI---------------------------------------
 def download_image(filename):
-    ftp = ftplib.FTP('ftp.photoretoucher.eu')
-    ftp.login('bg_eng@photoretoucher.eu', 'Mikolino2009')
+    ftp = ftplib.FTP('YOUR FTP')
+    ftp.login('USERNAME', 'PASS')
     download_file = io.BytesIO()
     ftp.retrbinary('RETR ' + filename, download_file.write)
     download_file.seek(0)
